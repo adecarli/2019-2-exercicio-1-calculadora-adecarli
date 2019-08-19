@@ -6,91 +6,189 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    var evaluated = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Adiciona o dígito pressionado à string de exibição
         btn_0.setOnClickListener {
-            val str = text_calc.text.toString() + "0"
+            // Se acabamos de avaliar uma expressão, limpe e coloque apenas o digito pressionado
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "0"
+                        else {
+                            evaluated = false
+                            "0"
+                        }
             text_calc.setText(str)
         }
         btn_1.setOnClickListener {
-            val str = text_calc.text.toString() + "1"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "1"
+                        else {
+                            evaluated = false
+                            "1"
+                        }
             text_calc.setText(str)
         }
         btn_2.setOnClickListener {
-            val str = text_calc.text.toString() + "2"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "2"
+                        else {
+                            evaluated = false
+                            "2"
+                        }
             text_calc.setText(str)
         }
         btn_3.setOnClickListener {
-            val str = text_calc.text.toString() + "3"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "3"
+                        else {
+                            evaluated = false
+                            "3"
+                        }
             text_calc.setText(str)
         }
         btn_4.setOnClickListener {
-            val str = text_calc.text.toString() + "4"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "4"
+                        else {
+                            evaluated = false
+                            "4"
+                        }
             text_calc.setText(str)
         }
         btn_5.setOnClickListener {
-            val str = text_calc.text.toString() + "5"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "5"
+                        else {
+                            evaluated = false
+                            "5"
+                        }
             text_calc.setText(str)
         }
         btn_6.setOnClickListener {
-            val str = text_calc.text.toString() + "6"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "6"
+                        else {
+                            evaluated = false
+                            "6"
+                        }
             text_calc.setText(str)
         }
         btn_7.setOnClickListener {
-            val str = text_calc.text.toString() + "7"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "7"
+                        else {
+                            evaluated = false
+                            "7"
+                        }
             text_calc.setText(str)
         }
         btn_8.setOnClickListener {
-            val str = text_calc.text.toString() + "8"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "8"
+                        else {
+                            evaluated = false
+                            "8"
+                        }
             text_calc.setText(str)
         }
         btn_9.setOnClickListener {
-            val str = text_calc.text.toString() + "9"
-            text_calc.setText(str)
-        }
-        btn_Add.setOnClickListener {
-            val str = text_calc.text.toString() + "+"
-            text_calc.setText(str)
-        }
-        btn_Subtract.setOnClickListener {
-            val str = text_calc.text.toString() + "-"
-            text_calc.setText(str)
-        }
-        btn_Multiply.setOnClickListener {
-            val str = text_calc.text.toString() + "*"
-            text_calc.setText(str)
-        }
-        btn_Divide.setOnClickListener {
-            val str = text_calc.text.toString() + "/"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "9"
+                        else {
+                            evaluated = false
+                            "9"
+                        }
             text_calc.setText(str)
         }
         btn_Dot.setOnClickListener {
-            val str = text_calc.text.toString() + "."
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "."
+                        else {
+                            evaluated = false
+                            "."
+                        }
             text_calc.setText(str)
         }
         btn_LParen.setOnClickListener {
-            val str = text_calc.text.toString() + "("
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "("
+                        else {
+                            evaluated = false
+                            "("
+                        }
             text_calc.setText(str)
         }
         btn_RParen.setOnClickListener {
-            val str = text_calc.text.toString() + ")"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + ")"
+                        else {
+                            evaluated = false
+                            ")"
+                        }
+            text_calc.setText(str)
+        }
+
+        btn_Add.setOnClickListener {
+            // Se acabamos de avaliar uma expressão, coloque o resultado antes da operação
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "+"
+                        else {
+                            evaluated = false
+                            text_info.text.toString() + "+"
+                        }
+            text_calc.setText(str)
+        }
+        btn_Subtract.setOnClickListener {
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "-"
+                        else {
+                            evaluated = false
+                            text_info.text.toString() + "-"
+                        }
+            text_calc.setText(str)
+        }
+        btn_Multiply.setOnClickListener {
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "*"
+                        else {
+                            evaluated = false
+                            text_info.text.toString() + "*"
+                        }
+            text_calc.setText(str)
+        }
+        btn_Divide.setOnClickListener {
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "/"
+                        else {
+                            evaluated = false
+                            text_info.text.toString() + "/"
+                        }
             text_calc.setText(str)
         }
         btn_Power.setOnClickListener {
-            val str = text_calc.text.toString() + "^"
+            val str =   if (!evaluated)
+                            text_calc.text.toString() + "^"
+                        else {
+                            evaluated = false
+                            text_info.text.toString() + "^"
+                        }
             text_calc.setText(str)
         }
         // Limpa a string
         btn_Clear.setOnClickListener {
-            val str = ""
-            text_calc.setText(str)
+            text_calc.setText("")
+            text_info.text = ""
+            evaluated = false
         }
         btn_Equal.setOnClickListener {
-            TODO("Equal Button not yet implemented")
-
+            // Armazena o resultado em uma variável e a exibe
+            val res = eval(text_calc.text.toString())
+            text_info.text = res.toString()
+            evaluated = true
         }
     }
 
