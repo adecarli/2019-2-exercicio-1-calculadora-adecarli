@@ -2,11 +2,13 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     var evaluated = false
+    var invalid = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -186,9 +188,14 @@ class MainActivity : AppCompatActivity() {
         }
         btn_Equal.setOnClickListener {
             // Armazena o resultado em uma variável e a exibe
+            invalid = false
             val res = eval(text_calc.text.toString())
-            text_info.text = res.toString()
-            evaluated = true
+            // Se a expressão a ser avaliada for invalida, limpe a tela
+            if (invalid) btn_Clear.callOnClick()
+            else {
+                text_info.text = res.toString()
+                evaluated = true
+            }
         }
     }
 
@@ -219,7 +226,12 @@ class MainActivity : AppCompatActivity() {
             fun parse(): Double {
                 nextChar()
                 val x = parseExpression()
-                if (pos < str.length) throw RuntimeException("Caractere inesperado: " + ch)
+                if (pos < str.length)  {
+                    // Exibe o Toast e limpa a tela
+                    Toast.makeText(this@MainActivity, "Caractere inesperado: " + ch, Toast.LENGTH_LONG).show()
+                    invalid = true
+                    return 0.0
+                }
                 return x
             }
 
@@ -275,10 +287,17 @@ class MainActivity : AppCompatActivity() {
                         x = Math.cos(Math.toRadians(x))
                     else if (func == "tan")
                         x = Math.tan(Math.toRadians(x))
-                    else
-                        throw RuntimeException("Função desconhecida: " + func)
+                    else {
+                        // Exibe o Toast e limpa a tela
+                        Toast.makeText(this@MainActivity, "Função desconhecida: " + func, Toast.LENGTH_LONG).show()
+                        invalid = true
+                        return 0.0
+                    }
                 } else {
-                    throw RuntimeException("Caractere inesperado: " + ch.toChar())
+                    // Exibe o Toast e limpa a tela
+                    Toast.makeText(this@MainActivity, "Caractere inesperado: " + ch, Toast.LENGTH_LONG).show()
+                    invalid = true
+                    return 0.0
                 }
                 if (eat('^')) x = Math.pow(x, parseFactor()) // potência
                 return x
